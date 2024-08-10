@@ -78,7 +78,8 @@ public class ThemNguoiDungFragment extends Fragment {
 
                     if(check){
                         Toast.makeText(getActivity(), "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                        ThuThu tt = new ThuThu("", taiKhoan, xacNhanMK);
+                        String newMaTT = "TT" + list.size()+1;
+                        ThuThu tt = new ThuThu(newMaTT, taiKhoan, xacNhanMK);
                         dao.create(tt);
                         tiedtTaiKhoan.setText("");
                         tiedtMatKhau.setText("");

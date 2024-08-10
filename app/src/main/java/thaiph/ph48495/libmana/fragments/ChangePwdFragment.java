@@ -1,6 +1,7 @@
 package thaiph.ph48495.libmana.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import thaiph.ph48495.libmana.R;
+import thaiph.ph48495.libmana.activities.LoginActivity;
 import thaiph.ph48495.libmana.daos.ThuThuDAO;
 import thaiph.ph48495.libmana.models.ThuThu;
 
@@ -43,7 +45,7 @@ public class ChangePwdFragment extends Fragment {
             String conFirmPwd = edtConfirmPwd.getText().toString();
 
 
-            if(!edtPwdOld.equals("") && !edtNewPwd.equals("") && !edtConfirmPwd.equals("")){
+            if(!pwdOld.equals("") && !newPwd.equals("") && !conFirmPwd.equals("")){
 
                 pref = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                 String tk = pref.getString("tk", "");
@@ -56,7 +58,8 @@ public class ChangePwdFragment extends Fragment {
                         boolean check = dao.update(thuThu);
                         if(check){
                             Toast.makeText(getContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                            deleteForm();
+                            startActivity(new Intent(getContext(), LoginActivity.class));
+                            getActivity().finish();
                         } else {
                             Toast.makeText(getContext(), "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
                         }
@@ -84,10 +87,5 @@ public class ChangePwdFragment extends Fragment {
         edtNewPwd.setText("");
         edtPwdOld.setText("");
         edtConfirmPwd.setText("");
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

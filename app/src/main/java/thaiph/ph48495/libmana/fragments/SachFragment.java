@@ -103,16 +103,19 @@ public class SachFragment extends Fragment {
                 String giaThue = edtGiaThue.getText().toString();
 
                 if(!tenSach.equals("") && !giaThue.equals("")){
-                    Sach sach = new Sach(0, tenSach, Integer.parseInt(giaThue), maLoai);
-                    Log.d(TAG, "onCreateView: maLoai: "+maLoai);
-                    boolean check = dao.create(sach);
-                    if(check){
-                        list = dao.read();
-                        adapter.refreshList(list);
-                        alertDialog.dismiss();
-                        Toast.makeText(getContext(), "Thêm sách thành công!", Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(getContext(), "Thêm thất bại!", Toast.LENGTH_SHORT).show();
+                    if(Integer.parseInt(giaThue) > 0) {
+                        Sach sach = new Sach(0, tenSach, Integer.parseInt(giaThue), maLoai);
+                        boolean check = dao.create(sach);
+                        if(check){
+                            list = dao.read();
+                            adapter.refreshList(list);
+                            alertDialog.dismiss();
+                            Toast.makeText(getContext(), "Thêm sách thành công!", Toast.LENGTH_SHORT).show();
+                        } else{
+                            Toast.makeText(getContext(), "Thêm thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Giá thuê phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getContext(), "Không để trống!", Toast.LENGTH_SHORT).show();
@@ -176,22 +179,25 @@ public class SachFragment extends Fragment {
 
             //Cập nhật
             btnThem.setOnClickListener(v -> {
-                String tenSach = edtTenSach.getText().toString();
-                String giaThue = edtGiaThue.getText().toString();
+                String tenSach = edtTenSach.getText().toString().trim();
+                String giaThue = edtGiaThue.getText().toString().trim();
                 int maSach = list.get(position).getMaSach();
 
                 if(!tenSach.equals("") && !giaThue.equals("")){
-                    Sach sach = new Sach(maSach, tenSach, Integer.parseInt(giaThue), maLoai);
 
-
-                    boolean check = dao.update(sach);
-                    if(check){
-                        list = dao.read();
-                        adapter.refreshList(list);
-                        alertDialog.dismiss();
-                        Toast.makeText(getContext(), "Cật nhật sách thành công!", Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+                    if(Integer.parseInt(giaThue) > 0){
+                        Sach sach = new Sach(maSach, tenSach, Integer.parseInt(giaThue), maLoai);
+                        boolean check = dao.update(sach);
+                        if(check){
+                            list = dao.read();
+                            adapter.refreshList(list);
+                            alertDialog.dismiss();
+                            Toast.makeText(getContext(), "Cật nhật sách thành công!", Toast.LENGTH_SHORT).show();
+                        } else{
+                            Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Giá thuê phải lớn hơn 0!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getContext(), "Không để trống!", Toast.LENGTH_SHORT).show();

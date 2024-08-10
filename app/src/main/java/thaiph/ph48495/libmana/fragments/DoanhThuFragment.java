@@ -48,7 +48,7 @@ public class DoanhThuFragment extends Fragment {
                 mYear = year;
                 mMonth = month;
                 mDay = dayOfMonth;
-                GregorianCalendar c = new GregorianCalendar(mYear, month, mDay);
+                GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
                 edtTuNgay.setText(sdf.format(c.getTime()));
             }
         };
@@ -59,7 +59,7 @@ public class DoanhThuFragment extends Fragment {
                 mYear = year;
                 mMonth = month;
                 mDay = dayOfMonth;
-                GregorianCalendar c = new GregorianCalendar(mYear, month, mDay);
+                GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
                 edtDenNgay.setText(sdf.format(c.getTime()));
             }
         };
